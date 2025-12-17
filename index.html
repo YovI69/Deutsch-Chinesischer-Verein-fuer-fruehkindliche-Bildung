@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中德幼师项目 - 图片展示平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            padding: 20px 0;
+        }
+        /* 标题区域 */
+        .title {
+            text-align: center;
+            font-size: 28px;
+            color: #2c5282;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        /* 主容器：居中布局 */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        /* 分类卡片：层级标题 */
+        .category-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .card-title {
+            padding: 15px 20px;
+            background-color: #2c5282;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-title span {
+            transition: transform 0.3s;
+        }
+        .card-title.active span {
+            transform: rotate(180deg);
+        }
+        /* 图片容器：默认隐藏，展开后显示 */
+        .image-container {
+            padding: 20px;
+            display: none;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .image-container.active {
+            display: flex;
+        }
+        /* 图片样式：自适应，点击放大 */
+        .image-item {
+            width: 280px;
+            height: 200px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .image-item:hover {
+            transform: scale(1.03);
+        }
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* 图片预览弹窗 */
+        .image-preview {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 40px;
+        }
+        .preview-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .preview-content img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+        }
+        .close-preview {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        /* 响应式适配手机 */
+        @media (max-width: 768px) {
+            .image-item {
+                width: 100%;
+                height: auto;
+            }
+            .title {
+                font-size: 24px;
+            }
+            .card-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">中德幼师项目 图片资料</h1>
+
+    <div class="container">
+        <!-- 分类1：项目介绍图片 -->
+        <div class="category-card">
+            <div class="card-title">
+                1. 项目介绍
+                <span>▲</span>
+            </div>
+            <div class="image-container">
+                <div class="image-item" data-img="images/project_01.jpg">
+                    <img src="images/project_01.jpg" alt="项目背景">
+                </div>
+                <div class="image-item" data-img="images/project_02.jpg">
+                    <img src="images/project_02.jpg" alt="项目优势">
+                </div>
+                <div class="image-item" data-img="images/project_03.jpg">
+                    <img src="images/project_03.jpg" alt="合作机构">
+                </div>
+                <!-- 可添加更多图片：复制上面的 .image-item 即可 -->
+            </div>
+        </div>
+
+        <!-- 分类2：中德幼师差异图片 -->
+        <div class="category-card">
+            <div class="card-title">
+                2. 中德幼师差异
+                <span>▲</span>
+            </div>
+            <div class="image-container">
+                <div class="image-item" data-img="images/diff_01.jpg">
+                    <img src="images/diff_01.jpg" alt="核心差异对比">
+                </div>
+                <div class="image-item" data-img="images/diff_02.jpg">
+                    <img src="images/diff_02.jpg" alt="工作场景差异">
+                </div>
+                <!-- 可添加更多图片 -->
+            </div>
+        </div>
+
+        <!-- 分类3：赴德方案图片 -->
+        <div class="category-card">
+            <div class="card-title">
+                3. 赴德方案
+                <span>▲</span>
+            </div>
+            <div class="image-container">
+                <div class="image-item" data-img="images/plan_01.jpg">
+                    <img src="images/plan_01.jpg" alt="本科毕业生方案">
+                </div>
+                <div class="image-item" data-img="images/plan_02.jpg">
+                    <img src="images/plan_02.jpg" alt="大专毕业生方案">
+                </div>
+                <div class="image-item" data-img="images/plan_03.jpg">
+                    <img src="images/plan_03.jpg" alt="双元制教育方案">
+                </div>
+                <!-- 可添加更多图片 -->
+            </div>
+        </div>
+
+        <!-- 分类4：德国福利&现状图片 -->
+        <div class="category-card">
+            <div class="card-title">
+                4. 德国福利&幼师现状
+                <span>▲</span>
+            </div>
+            <div class="image-container">
+                <div class="image-item" data-img="images/welfare_01.jpg">
+                    <img src="images/welfare_01.jpg" alt="福利保障">
+                </div>
+                <div class="image-item" data-img="images/welfare_02.jpg">
+                    <img src="images/welfare_02.jpg" alt="薪资水平">
+                </div>
+                <div class="image-item" data-img="images/status_01.jpg">
+                    <img src="images/status_01.jpg" alt="幼师缺口现状">
+                </div>
+                <!-- 可添加更多图片 -->
+            </div>
+        </div>
+
+        <!-- 分类5：实景图片（学校/幼儿园） -->
+        <div class="category-card">
+            <div class="card-title">
+                5. 德国实景展示
+                <span>▲</span>
+            </div>
+            <div class="image-container">
+                <div class="image-item" data-img="images/school_01.jpg">
+                    <img src="images/school_01.jpg" alt="德国幼师学校">
+                </div>
+                <div class="image-item" data-img="images/kindergarten_01.jpg">
+                    <img src="images/kindergarten_01.jpg" alt="德国幼儿园">
+                </div>
+                <div class="image-item" data-img="images/life_01.jpg">
+                    <img src="images/life_01.jpg" alt="德国生活环境">
+                </div>
+                <!-- 可添加更多图片 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片预览弹窗 -->
+    <div class="image-preview" id="preview">
+        <button class="close-preview" id="closePreview">&times;</button>
+        <div class="preview-content">
+            <img src="" alt="图片预览" id="previewImg">
+        </div>
+    </div>
+
+    <script>
+        // 1. 分类卡片展开/收起
+        const cardTitles = document.querySelectorAll('.card-title');
+        cardTitles.forEach(title => {
+            title.addEventListener('click', () => {
+                const container = title.nextElementSibling;
+                title.classList.toggle('active');
+                container.classList.toggle('active');
+            });
+        });
+
+        // 2. 图片点击放大预览
+        const imageItems = document.querySelectorAll('.image-item');
+        const preview = document.getElementById('preview');
+        const previewImg = document.getElementById('previewImg');
+        const closePreview = document.getElementById('closePreview');
+
+        imageItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imgSrc = item.getAttribute('data-img');
+                previewImg.src = imgSrc;
+                preview.style.display = 'flex';
+            });
+        });
+
+        // 关闭预览
+        closePreview.addEventListener('click', () => {
+            preview.style.display = 'none';
+        });
+        preview.addEventListener('click', (e) => {
+            if (e.target === preview) {
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
